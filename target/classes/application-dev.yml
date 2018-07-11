@@ -1,3 +1,0 @@
-server:
-  port: 9696
-  context-path: /dev
