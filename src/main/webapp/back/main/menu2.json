@@ -1,0 +1,34 @@
+[{
+	"id":"23",
+	"title":"商品标签管理",
+	"iconCls":"icon-home",
+	"href":"",
+	"children":[
+	{"id":"221","title":"分类查看","iconCls":"icon-man","href":"/back/category/index.jsp"},
+	{"id":"222","title":"主题查看","iconCls":"icon-user_red","href":"/back/theme/index.jsp"}
+]
+},{
+"id":"24",
+"title":"订单管理",
+	"iconCls":"icon-rosette_blue",
+	"href":"",
+	"children":[
+		{"id":"221","title":"订单查看","iconCls":"icon-man","href":"/back/order/index.jsp"}
+	]
+},{
+	"id":"25",
+	"title":"商家管理",
+	"iconCls":"icon-rosette",
+	"href":"",
+	"children":[
+		{"id":"221","title":"商铺查看","iconCls":"icon-man","href":"/back/shop/index.jsp"}
+	]
+},{
+	"id":"26",
+	"title":"商品管理",
+	"iconCls":"icon-calendar",
+	"href":"",
+	"children":[
+		{"id":"221","title":"商品查看","iconCls":"icon-man","href":"/back/goods/index.jsp"}
+	]
+}]
