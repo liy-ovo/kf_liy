@@ -5,7 +5,9 @@ import com.baizhi.entity.Admin;
 import com.baizhi.entity.User;
 import com.baizhi.service.UserService;
 import com.baizhi.util.NoUtil;
+import com.baizhi.util.POIUtil;
 import com.github.pagehelper.PageHelper;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +40,11 @@ public class UserController {
         }
         jedis.hset("user", NoUtil.getMAC(),JSONObject.toJSONString(user));
         return "登录成功~~~";
+    }
+    @RequestMapping("/getXls")
+    public void getXls(HttpServletResponse response)throws Exception{
+        Workbook goodsXls = POIUtil.getUserXls("用户表", userService.findAll());
+        POIUtil.download(goodsXls, response.getOutputStream());
     }
     @RequestMapping("/loginOut")
     public void loginOut(){

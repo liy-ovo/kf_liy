@@ -158,6 +158,12 @@
         //关闭对话框
         $("#updateDialog").dialog('close');
     }
+    
+    function downloadUsers() {
+		$.ajax({
+			url:'/kf/user/getXls'
+		});
+    }
 
     //处理删除选中
     function delSelectRows(){
@@ -202,6 +208,7 @@
 <div id="tb">
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="openSaveDialog();">添加</a>
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="delSelectRows();">删除选中</a>
+	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="downloadUsers();">下载</a>
 </div>
 
 <!-- 用来处理保存的对话框 -->

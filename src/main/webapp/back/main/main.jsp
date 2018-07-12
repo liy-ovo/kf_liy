@@ -47,7 +47,7 @@
             }
 			console.log(menuString);
             //发送ajax请求获取菜单数据
-            $.get(menuString,function(menus){
+            $.get('/kf/back/main/menu.json',function(menus){
                 console.log(menus);
                 //遍历一级菜单
                 $.each(menus,function(idx,menu){

@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, specifications, price, sales, seller, put_time, theme_id
+    id, name, specifications, price, sales, seller, put_time, theme_id, instructions
   </sql>
   <sql id="Blob_Column_List">
     instructions

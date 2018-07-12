@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" isELIgnored="false" contentType="text/html; UTF-8" %>
 
 
 
@@ -217,7 +217,7 @@
         //关闭对话框
         $("#updateDialog").dialog('close');
     }
-
+    
     //处理删除选中
     function delSelectRows(){
         $.messager.confirm('提示', '确定要删除这些数据吗?', function(r){
@@ -261,6 +261,7 @@
 <div id="tb">
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="openSaveDialog();">添加</a>
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="delSelectRows();">删除选中</a>
+	<a href="/kf/goods/getXls" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true">下载</a>
 </div>
 
 <!-- 用来处理保存的对话框 -->
