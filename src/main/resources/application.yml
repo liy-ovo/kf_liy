@@ -3,6 +3,7 @@ server:
   jsp-servlet:
     init-parameters:
       development: true
+  context-path: /solr
 #告知springboot使用哪个子配置文件
 spring:
   profiles:
@@ -23,6 +24,9 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  data:
+    solr:
+      host: http://localhost:9696/solr/collection1
   #告知springboot  mapper文件所在位置 创建sqlSessionFactory
 mybatis:
   mapper-locations: classpath:com/baizhi/mapper/*.xml

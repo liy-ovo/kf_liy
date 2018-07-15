@@ -10,6 +10,18 @@ import java.util.Map;
 
 public interface GoodsService {
     /**
+     * 全文检索查询
+     */
+    List<Goods> findByLucene(String keyword);
+    /**
+     * 创建索引
+     */
+    void createDir();
+    /**
+     * 更新索引
+     */
+    void updateDocuments();
+    /**
      * 查询所有商品
      */
     List<HashMap<String, Object>> findAll();

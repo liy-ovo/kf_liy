@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, specifications, price, sales, seller, put_time, theme_id, instructions
+    id, name, specifications, price, sales, seller, put_time, theme_id
   </sql>
   <sql id="Blob_Column_List">
     instructions
@@ -99,7 +99,8 @@
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
+    <include refid="Base_Column_List" />,
+    <include refid="Blob_Column_List" />
     from kf_goods
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

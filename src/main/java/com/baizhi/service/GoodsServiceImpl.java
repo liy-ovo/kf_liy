@@ -2,6 +2,8 @@ package com.baizhi.service;
 
 import com.baizhi.dao.*;
 import com.baizhi.entity.*;
+import com.baizhi.util.LuceneUtil;
+import org.apache.lucene.index.IndexWriter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +18,50 @@ public class GoodsServiceImpl implements GoodsService{
     @Resource
     private ShopMapper shopMapper;
     @Resource
-    private CategoryMapper categoryMapper;
-    @Resource
     private GoodsCategoryService goodsCategoryService;
     @Resource
     private ThemeMapper themeMapper;
     @Resource
     private PictureMapper pictureMapper;
+
+    @Override
+    public List<Goods> findByLucene(String keyword) {
+        LuceneDAO luceneDAO = new LuceneDAOImpl();
+        try{
+            List<Goods> list = luceneDAO.getAllGoods(keyword);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    @Override
+    public void createDir() {
+        LuceneDAO luceneDAO = new LuceneDAOImpl();
+        List<Goods> goods = goodsMapper.selectByExample(new GoodsExample());
+        for (Goods good : goods) {
+            luceneDAO.add(good);
+        }
+    }
+
+    @Override
+    public void updateDocuments() {
+        LuceneDAO luceneDAO = new LuceneDAOImpl();
+        try{
+            IndexWriter indexWriter = LuceneUtil.getIndexWriter();
+            indexWriter.deleteAll();
+            List<Goods> goods = goodsMapper.selectByExample(new GoodsExample());
+            for (Goods good : goods) {
+                luceneDAO.add(good);
+            }
+            LuceneUtil.commit();
+        }catch (Exception e){
+            LuceneUtil.rollback();
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public List<HashMap<String, Object>> findAll() {
         List<Goods> goods = goodsMapper.selectByExample(new GoodsExample());
@@ -87,22 +126,28 @@ public class GoodsServiceImpl implements GoodsService{
 
     @Override
     public void add(Goods goods, String[] category) {
+        LuceneDAO luceneDAO = new LuceneDAOImpl();
         goods.setId(UUID.randomUUID().toString());
         goods.setPutTime(new Date());
         goodsMapper.insertSelective(goods);
+        luceneDAO.add(goods);
         goodsCategoryService.add(goods.getId(),category);
     }
 
     @Override
     public void update(Goods goods, String[] category) {
+        LuceneDAO luceneDAO = new LuceneDAOImpl();
         goodsMapper.updateByPrimaryKeySelective(goods);
+        luceneDAO.update(goods);
         goodsCategoryService.deleteByGoodsId(goods.getId());
         goodsCategoryService.add(goods.getId(),category);
     }
 
     @Override
     public void delete(String id) {
+        LuceneDAO luceneDAO = new LuceneDAOImpl();
         goodsCategoryService.deleteByGoodsId(id);
         goodsMapper.deleteByPrimaryKey(id);
+        luceneDAO.delete(id);
     }
 }

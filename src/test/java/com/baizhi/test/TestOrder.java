@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.sql.Date;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -23,5 +24,9 @@ public class TestOrder {
     public void testNo(){
         String no = NoUtil.getNo();
         System.out.println(no);
+    }
+    @Test
+    public void testDate(){
+        System.out.println(Date.valueOf("1996-11-01"));
     }
 }

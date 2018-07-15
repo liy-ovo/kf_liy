@@ -16,3 +16,4 @@ gen### Java template
 *.rar
 hs_err_pid*
 /target
+/index

@@ -13,6 +13,11 @@
 			fitColumns:true,
 			toolbar:'#tb',
 			columns:[[
+                /*{field:'id',checkbox:true},
+                {title:'商品名',field:'name',width:200,},
+                {title:'价格',field:'price',width:100,},
+                {title:'销售方',field:'seller',width:150,},
+                {title:'上架时间',field:'putTime',width:150,},*/
                 	 {field:'id',checkbox:true},
 			         {title:'商品名',field:'goods.name',width:200,
                          formatter:function(value,row,index){
@@ -217,7 +222,16 @@
         //关闭对话框
         $("#updateDialog").dialog('close');
     }
-    
+    function updateDir() {
+        $.ajax({
+            url:'/kf/goods/updateDocuments',
+        });
+    }
+    function createDir() {
+		$.ajax({
+			url:'/kf/goods/createDir',
+		});
+    }
     //处理删除选中
     function delSelectRows(){
         $.messager.confirm('提示', '确定要删除这些数据吗?', function(r){
@@ -262,6 +276,8 @@
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="openSaveDialog();">添加</a>
 	<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="delSelectRows();">删除选中</a>
 	<a href="/kf/goods/getXls" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true">下载</a>
+	<a href="#" class="easyui-linkbutton" onclick="updateDir()" data-options="iconCls:'icon-note',plain:true">更新前台索引</a>
+    <a href="#" class="easyui-linkbutton" onclick="createDir();" data-options="iconCls:'icon-note',plain:true">创建前台索引</a>
 </div>
 
 <!-- 用来处理保存的对话框 -->

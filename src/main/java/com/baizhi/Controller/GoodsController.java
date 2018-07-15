@@ -2,8 +2,10 @@ package com.baizhi.Controller;
 
 import com.baizhi.entity.Goods;
 import com.baizhi.service.GoodsService;
+import com.baizhi.util.LuceneUtil;
 import com.baizhi.util.POIUtil;
 import com.github.pagehelper.PageHelper;
+import org.apache.lucene.search.Filter;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +31,27 @@ public class GoodsController {
     public List<HashMap<String, Object>> queryAll(@RequestParam("page") Integer pageNow, @RequestParam("rows") Integer pageSize){
         PageHelper.startPage(pageNow, pageSize);
         return goodsService.findAll();
+    }
+    @RequestMapping("/queryGoods")
+    @ResponseBody
+    public List<Goods> queryGoods(String keyword, Float min, Float max){
+        System.out.println(keyword);
+        Filter filter = LuceneUtil.getFilter(min, max);
+        List<Goods> list = goodsService.findByLucene(keyword);
+        for (Goods goods : list) {
+            System.out.println(goods.getName());
+        }
+        return list;
+    }
+    @RequestMapping("/updateDocuments")
+    public void updateDocuments(){
+        goodsService.updateDocuments();
+    }
+    @RequestMapping("/createDir")
+    public void createDir(){
+        if(!new File("./index").exists()){
+            goodsService.createDir();
+        }
     }
     @RequestMapping("/getXls")
     public void getXls(HttpServletRequest request, HttpServletResponse response)throws Exception{
