@@ -96,7 +96,11 @@
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>1.3.2</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.0</version>
+    </dependency>
     <!--引入fastjson的jar包-->
     <dependency>
       <groupId>com.alibaba</groupId>
@@ -167,6 +171,11 @@
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-analyzers-smartcn</artifactId>
       <version>4.4.0</version>
+    </dependency>
+    <!--引入MongoDB依赖-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb</artifactId>
     </dependency>
   </dependencies>
 

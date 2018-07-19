@@ -23,6 +23,17 @@ public class NoUtil {
         }
         return f+stringBuilder.toString();
     }
+    /**
+     * 获取验证码
+     */
+    public static String getRandom6(){
+        char[] code = "0123456789".toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            stringBuilder.append(code[new Random().nextInt(code.length)]);
+        }
+        return stringBuilder.toString();
+    }
 
     /**
      * 获取电脑物理地址MAC

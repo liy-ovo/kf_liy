@@ -1,7 +1,5 @@
 package com.baizhi.Controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.baizhi.entity.Admin;
 import com.baizhi.entity.User;
 import com.baizhi.service.UserService;
 import com.baizhi.util.NoUtil;
@@ -15,11 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.Jedis;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -38,8 +35,17 @@ public class UserController {
         if(user==null){
             return "用户名或密码错误";
         }
-        jedis.hset("user", NoUtil.getMAC(),JSONObject.toJSONString(user));
+        Set<String> sets = jedis.hkeys(user.getId() + ":*");
+        for (String set : sets) {
+            jedis.hset(set, "login","false");
+        }
+        jedis.hset(user.getId()+":"+NoUtil.getMAC(),"login","true");
         return "登录成功~~~";
+    }
+    @RequestMapping("/getKaptcha")
+    public void getKaptcha(String phone){
+        //String sms = SMS("account=xiaochen2018&password=cx521600&mobile=18236572178&content=您的验证码是：【"+NoUtil.getRandom6()+"】。如需帮助请联系客服。", "http://sms.106jiekou.com/utf8/sms.aspx");
+        Jedis jedis = new Jedis("192.168.37.128", 6379);
     }
     @RequestMapping("/getXls")
     public void getXls(HttpServletResponse response)throws Exception{
@@ -47,9 +53,9 @@ public class UserController {
         POIUtil.download(goodsXls, response.getOutputStream());
     }
     @RequestMapping("/loginOut")
-    public void loginOut(){
+    public void loginOut(String id){
         Jedis jedis = new Jedis("192.168.37.128", 6379);
-        jedis.hset("user",NoUtil.getMAC(),null);
+        jedis.hset(id+":"+NoUtil.getMAC(),"login","false");
     }
     @RequestMapping("/insist")
     public String insist(){

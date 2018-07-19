@@ -27,6 +27,8 @@ spring:
   data:
     solr:
       host: http://localhost:9696/solr/collection1
+    mongodb:
+      uri: mongodb://192.168.37.128:40000/ems
   #告知springboot  mapper文件所在位置 创建sqlSessionFactory
 mybatis:
   mapper-locations: classpath:com/baizhi/mapper/*.xml
